@@ -6,13 +6,13 @@
   
   <!-- startup simulated world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" default="worlds/empty.world"/>
+    <arg name="world_name" default="$(find ur_gazebo)/worlds/ur3_proyecto.world"/>
     <arg name="paused" value="$(arg paused)"/>
     <arg name="gui" value="$(arg gui)"/>
   </include>
 
   <!-- send robot urdf to param server -->
-  <include file="$(find ur_description)/launch/ur3_upload.launch">
+  <include file="$(find ur3_with_robotiq_gripper_description)/launch/ur3_robotiq_upload.launch">
     <arg name="limited" value="$(arg limited)"/>
   </include>
 
@@ -24,6 +24,11 @@
   <!-- start this controller -->
   <rosparam file="$(find ur_gazebo)/controller/arm_controller_ur3.yaml" command="load"/>
   <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller" respawn="false" output="screen"/>
+  
+  <!-- Gripper controller -->
+  <rosparam file="$(find robotiq_85_gazebo)/controller/joint_state_controller.yaml" command="load"/>
+  <node name="gripper_controller_spawner" pkg="controller_manager" type="spawner" args="gripper" />
+  
 
   <!-- load other controllers -->
   <node name="ros_control_controller_manager" pkg="controller_manager" type="controller_manager" respawn="false" output="screen" args="load joint_group_position_controller" />

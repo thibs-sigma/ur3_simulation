@@ -1,0 +1,76 @@
+<?xml version="1.0"?> 
+<sdf version="1.4">
+  <world name="default">
+
+    <!-- Ground Plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    
+    <!-- <include>
+      <scale>0.005 0.005 0.005</scale>
+      <uri>model://coke_can</uri>
+      <pose>1 0 0 0 0 0</pose>
+    </include> -->
+
+  <model name="coke_can">
+  	<pose>0.650 0 -0.2325 0 0 0</pose>
+  	<static>true</static>
+    <link name="link">
+      <inertial>
+
+        <mass>0.390</mass>
+        <inertia>
+          <ixx>0.00058</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00058</iyy>
+          <iyz>0</iyz>
+          <izz>0.00019</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+
+        <geometry>
+          <mesh>
+            <uri>model://coke_can/meshes/coke_can.dae</uri>
+            <scale>0.5 0.5 0.5</scale>
+          </mesh>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <kp>10000000.0</kp>
+              <kd>1.0</kd>
+              <min_depth>0.001</min_depth>
+              <max_vel>0.1</max_vel>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="visual">
+
+        <geometry>
+          <mesh>
+            <uri>model://coke_can/meshes/coke_can.dae</uri>
+            <scale>0.5 0.5 0.5</scale>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+    
+  </world>
+
+</sdf>
+
